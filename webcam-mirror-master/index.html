@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Webcam Mirror</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        #video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            background: url(polina.jpg) no-repeat;
+            background-size: cover;
+        }
+        @font-face {
+            font-family: "San Francisco";
+            font-weight: 900;
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-black-webfont.woff");
+        }
+        #draggable{
+            font-size: 30px;
+            color: pink;
+            font-family: "San Francisco";
+            font-weight: 900;
+            position: absolute;
+            cursor: pointer;
+
+        }
+        </style>
+    </head>
+    <body>
+        <video autoplay="true" id="video"> </video>
+        <script>
+        var video = document.querySelector("#video");
+        function handleVideo(stream) {video.src = window.URL.createObjectURL(stream);}
+        function videoError(e) {}
+
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+        navigator.getUserMedia({video: true}, handleVideo, videoError);
+        </script>
+        <p id='draggable'>I'm Pretty</p>
+        <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+      <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+  <script src="jquery.ui.touch-punch.js"></script>
+        <script>
+            $( function() {
+                $( "#draggable" ).draggable();
+                
+            } );
+        </script>
+    </body>
+</html>
