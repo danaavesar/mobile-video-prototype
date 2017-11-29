@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>tracking.js - face hello world</title>
+<!--   <link rel="stylesheet" href="assets/demo.css"> -->
+
+  <script src="../build/tracking-min.js"></script>
+  <script src="../build/data/face-min.js"></script>
+  <script src="../build/data/eye-min.js"></script>
+  <script src="../build/data/mouth-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.0/p5.js"></script>
+     <script src="https://labs.nearpod.com/bodymovin/demo/al_boardman/articulation/lottie2.min.js"></script>
+
+  <style>
+  .rect {
+    border: 2px solid #a64ceb;
+    left: -1000px;
+    position: absolute;
+    top: -1000px;
+  }
+
+  #img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+    .pic{
+          position: absolute;
+    width: 402px;
+    z-index: 1;
+    left: 0px;
+    top: -7px;
+    }
+    .img-wrap{
+            position: absolute;
+    width: 405px;
+    z-index: 1;
+    left: 25px;
+    top: 104px;
+    height: 654px;
+    overflow: hidden;
+    }
+    .phone{
+        position: absolute;
+    width: 399px;
+    z-index: 0;
+    }
+    canvas{
+           position: absolute;
+    width: 158px !important;
+    height: 376px !important;
+    left: 228px;
+    top: 258px;
+    z-index: 2;
+    }
+    .box{
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      z-index: 1;
+    }
+    .demo-container{
+          position: absolute;
+    width: 405px;
+    height: 594px;
+    z-index: 1;
+    left: 4px;
+    top: 96px;
+    overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+ <!--  <div class="demo-title">
+    <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － detect faces, eyes and mouths in a image</p>
+  </div> -->
+
+    
+    <div class="demo-container">
+      <div class="box" id="rejection"></div>
+      <!-- <img id="img" src="assets/faces.jpg" /> -->
+      <video id="img" width="405" height="654" autoplay loop>
+        <source src="./assets/dana.mp4" type="video/mp4"/>
+        <source src="./assets/dana.ogv" type="video/ogg"/>
+      </video>
+    </div>
+    <img class='phone' src='./assets/iphone.png'/>
+
+ <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script>
+   
+  
+
+    window.onload = function() {
+      var img = document.getElementById('img');
+
+      var tracker = new tracking.ObjectTracker(['face']);
+      tracker.setStepSize(1.7);
+
+      tracking.track('#img', tracker);
+
+      tracker.on('track', function(event) {
+        event.data.forEach(function(rect) {
+          window.plot(rect.x, rect.y, rect.width, rect.height);
+        });
+      });
+
+      window.plot = function(x, y, w, h) {
+        // $("#rejection").css({
+        //   'left':(img.offsetLeft + x) + 'px',
+        //   'top' : (img.offsetTop + y) + 'px'
+
+        // })
+        // var rect = document.createElement('div');
+        // document.querySelector('.demo-container').appendChild(rect);
+        // rect.classList.add('rect');
+        // rect.style.width = w + 'px';
+        // rect.style.height = h + 'px';
+        // rect.style.left = (img.offsetLeft + x) + 'px';
+        // rect.style.top = (img.offsetTop + y) + 'px';
+      };
+ 
+      
+          
+    
+    };
+  </script>
+
+</body>
+</html>
