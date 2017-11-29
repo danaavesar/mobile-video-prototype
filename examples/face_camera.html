@@ -12,23 +12,54 @@
 
   <style>
   video, canvas {
-    margin-left: 230px;
-    margin-top: 120px;
-    position: absolute;
+        position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
   }
+  @font-face {
+            font-family: "San Francisco";
+            font-weight: 900;
+            src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-black-webfont.woff");
+        }
+  #draggable{
+            font-size: 30px;
+            color: pink;
+            font-family: "San Francisco";
+            font-weight: 900;
+            position: absolute;
+            cursor: pointer;
+
+        }
   </style>
 </head>
 <body>
-  <div class="demo-title">
-    <p><a href="http://trackingjs.com" target="_parent">tracking.js</a> － get user's webcam and detect faces</p>
-  </div>
+  
 
-  <div class="demo-frame">
+  
     <div class="demo-container">
-      <video id="video" width="320" height="240" preload autoplay loop muted></video>
-      <canvas id="canvas" width="320" height="240"></canvas>
+      <video id="video"  preload autoplay loop muted></video>
+      <canvas id="canvas" ></canvas>
     </div>
-  </div>
+    <p id='draggable'>I'm Pretty</p>
+        <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+      <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+        <script>
+            $( function() {
+                $( "#draggable" ).draggable();
+                
+            } );
+        </script>
 
   <script>
     window.onload = function() {
@@ -43,23 +74,23 @@
 
       tracking.track('#video', tracker, { camera: true });
 
-      tracker.on('track', function(event) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
+      // tracker.on('track', function(event) {
+      //   context.clearRect(0, 0, canvas.width, canvas.height);
 
-        event.data.forEach(function(rect) {
-          context.strokeStyle = '#a64ceb';
-          context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-          context.font = '11px Helvetica';
-          context.fillStyle = "#fff";
-          context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
-          context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
-        });
-      });
+      //   event.data.forEach(function(rect) {
+      //     context.strokeStyle = '#a64ceb';
+      //     context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+      //     context.font = '11px Helvetica';
+      //     context.fillStyle = "#fff";
+      //     context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+      //     context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+      //   });
+      // });
 
-      var gui = new dat.GUI();
-      gui.add(tracker, 'edgesDensity', 0.1, 0.5).step(0.01);
-      gui.add(tracker, 'initialScale', 1.0, 10.0).step(0.1);
-      gui.add(tracker, 'stepSize', 1, 5).step(0.1);
+      // var gui = new dat.GUI();
+      // gui.add(tracker, 'edgesDensity', 0.1, 0.5).step(0.01);
+      // gui.add(tracker, 'initialScale', 1.0, 10.0).step(0.1);
+      // gui.add(tracker, 'stepSize', 1, 5).step(0.1);
     };
   </script>
 
